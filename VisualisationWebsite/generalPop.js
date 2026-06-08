@@ -19,7 +19,7 @@ const categories = ["Major Cities", "Regional", "Remote"];
 
         const tooltip = d3.select("#tooltip");
 
-        d3.csv("generalHospitalization.csv").then(function(data) {
+        d3.csv("generalPopVer3.csv").then(function(data) {
 
             data = data.filter(d => d["ABS remoteness area"] !== "Missing");
 
@@ -27,7 +27,7 @@ const categories = ["Major Cities", "Regional", "Remote"];
                 const obj = { year };
                 categories.forEach(cat => {
                     const row = data.find(d => d["ABS remoteness area"] === cat);
-                    obj[cat] = row ? +row[`${year}+Mean(Count of cases)`] : 0;
+                    obj[cat] = row ? +row[`${year}+Sum(Count of cases)`] : 0;
                 });
                 return obj;
             });
