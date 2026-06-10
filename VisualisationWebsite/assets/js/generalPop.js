@@ -19,7 +19,7 @@ const categories = ["Major Cities", "Regional", "Remote"];
 
         const tooltip = d3.select("#tooltip");
 
-        d3.csv("generalHospitalization.csv").then(function(data) {
+        d3.csv("assets/data/generalHospitalization.csv").then(function(data) {
 
             data = data.filter(d => d["ABS remoteness area"] !== "Missing");
 
