@@ -13,22 +13,15 @@ function loadGeneralHospitalizationData() {
         "2020": +d["2020+Mean(Count of cases)"],
         "2021": +d["2021+Mean(Count of cases)"]
     })).then(data => {
-        console.log(data);
         const filteredData = data.filter(d => d.remoteness !== "Missing");
-        
-        // Transform from row-based to column-based structure
-        const categories = ["Major Cities", "Regional", "Remote"];
-        const years = ["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"];
-        
         const chartData = years.map(year => {
             const obj = { year };
-            categories.forEach(cat => {
+            remotenessCategories.forEach(cat => {
                 const row = filteredData.find(d => d.remoteness === cat);
                 obj[cat] = row ? row[year] : 0;
             });
             return obj;
         });
-        
         return chartData;
     }).catch(error => {
         console.error("Error loading general hospitalization data:", error);
@@ -41,8 +34,11 @@ function loadRoadCrashData() {
         period: d["6-monthly"],
         indigenousStatus: d["First Nations status"],
         remoteness: d["ABS remoteness area"],
-        hospitalisations: +d["Hospitalisations"]
+        hospitalisations: +d["Hospitalisations"],
+        bedDays: +d["Bed days excluding died in hospitals within 30 days"]
     })).then(data => {
-        return data; 
+        return data;
+    }).catch(error => {
+        console.error("Error loading road crash data:", error);
     });
 }

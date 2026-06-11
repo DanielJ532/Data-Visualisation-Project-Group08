@@ -1,40 +1,32 @@
-const categories = ["Major Cities", "Regional", "Remote"];
-const colors = { "Major Cities": "#2196F3", "Regional": "#FF9800", "Remote": "#E53935" };
-const years = ["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"];
+const drawGeneralChart = (chartData) => {
+    const categories = remotenessCategories;
+    const colors = remotenessColors;
 
-const margin = { top: 20, right: 30, bottom: 50, left: 75 };
-const width  = 820 - margin.left - margin.right;
-const height = 440 - margin.top  - margin.bottom;
+    svg = d3.select("#populationCrashes")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
 
-const svg = d3.select("#populationCrashes")
-    .append("svg")
-    .attr("width",  width  + margin.left + margin.right)
-    .attr("height", height + margin.top  + margin.bottom)
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+    x0 = d3.scaleBand().domain(years).range([0, width]).padding(0.2);
+    x1 = d3.scaleBand().domain(categories).range([0, x0.bandwidth()]).padding(0.05);
+    yScale = d3.scaleLinear().range([height, 0]);
 
-const x0 = d3.scaleBand().domain(years).range([0, width]).padding(0.2);
-const x1 = d3.scaleBand().domain(categories).range([0, x0.bandwidth()]).padding(0.05);
-const yScale = d3.scaleLinear().range([height, 0]);
+    tooltip = d3.select("#tooltip");
 
-const tooltip = d3.select("#tooltip");
-
-function drawGeneralChart(chartData) {
     const maxVal = d3.max(chartData, d => d3.max(categories, cat => d[cat]));
     yScale.domain([0, maxVal * 1.1]).nice();
     
-    // Grid
     svg.append("g").attr("class", "grid")
         .call(d3.axisLeft(yScale).ticks(6).tickSize(-width).tickFormat(""))
         .selectAll("line").attr("stroke", "#e0e0e0").attr("stroke-dasharray", "3,3");
     svg.select(".grid .domain").remove();
     
-    // Y axis
     svg.append("g")
         .call(d3.axisLeft(yScale).ticks(6).tickFormat(d => d.toLocaleString()))
         .select(".domain").remove();
     
-    // X axis
     svg.append("g")
         .attr("transform", `translate(0,${height})`)
         .call(d3.axisBottom(x0).tickSize(0))
@@ -42,7 +34,6 @@ function drawGeneralChart(chartData) {
     
     svg.selectAll(".tick text").style("font-size", "12px").attr("fill", "#555");
     
-    // Labels
     svg.append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", -65).attr("x", -height / 2)
@@ -56,7 +47,6 @@ function drawGeneralChart(chartData) {
         .style("font-size", "12px").attr("fill", "#555")
         .text("Year");
     
-    // Bars
     const yearGroups = svg.selectAll(".year-group")
         .data(chartData).enter()
         .append("g")
@@ -76,7 +66,6 @@ function drawGeneralChart(chartData) {
         .attr("y", d => yScale(d.value))
         .attr("height", d => height - yScale(d.value));
     
-    // Tooltips
     svg.selectAll(".bar")
         .on("mouseover", (event, d) => {
             tooltip.style("opacity", 1)
@@ -87,15 +76,16 @@ function drawGeneralChart(chartData) {
         })
         .on("mouseout", () => tooltip.style("opacity", 0));
     
-    // Legend
-    categories.forEach(cat => {
+    remotenessCategories.forEach(cat => {
         const item = d3.select("#legend").append("div").attr("class", "legend-item");
         item.append("div").attr("class", "legend-box").style("background", colors[cat]);
         item.append("span").text(cat);
     });
 }
 
-// Load and draw
-loadGeneralHospitalizationData().then(chartData => {
-    drawGeneralChart(chartData);
+loadGeneralHospitalizationData().then(data => {
+    console.log(data);
+    drawGeneralChart(data);
+}).catch(error => {
+    console.error("Error loading the CSV file:", error);
 });

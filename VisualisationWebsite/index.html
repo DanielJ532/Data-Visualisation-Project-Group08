@@ -21,24 +21,32 @@
     </header>
     <main>
         <section>
-            <h2>Aboriginal and Torres Strait Islander crashes based on remoteness of road  </h2>
-            <p>The studies and data gathered from the organisation has shown that Australian roads have a fatality rate of 4.7 deaths per 100000 people. Australia was ranked 20th out of the 34 countries [1]. Remote areas show worse severity despite lower raw counts, the demographic who represents remote communities are aboriginal and indigenous Australians. According to 2021 census 15.4 percent of the total indigenous population in Australia lives in remote or very remote areas. Comprising 150800 individuals. 
-
-                Indigenous Australians are overrepresented in road fatalities by approximately 3.5 times [2]. the data suggests a strong correlation between infrastructure quality, geographic remoteness, and overrepresentation of Indigenous fatalities, warranting further investigation into funding allocation. 
-
-                Aboriginal and Torres Strait Islander communities face road safety challenges related to the condition and standard of remote road infrastructure our visualization aims to make these disparities visible and support evidence-based discussions on where interventions and funding are most needed.
-            </p>
+            <h2>Aboriginal and Torres Strait Islander crashes based on remoteness of road</h2>
+            <p>The studies and data gathered from the organisation has shown that Australian roads have a fatality rate of 4.7 deaths per 100000 people. Australia was ranked 20th out of the 34 countries [1]. Remote areas show worse severity despite lower raw counts, the demographic who represents remote communities are aboriginal and indigenous Australians. According to 2021 census 15.4 percent of the total indigenous population in Australia lives in remote or very remote areas. Comprising 150800 individuals. Indigenous Australians are overrepresented in road fatalities by approximately 3.5 times [2]. the data suggests a strong correlation between infrastructure quality, geographic remoteness, and overrepresentation of Indigenous fatalities, warranting further investigation into funding allocation. Aboriginal and Torres Strait Islander communities face road safety challenges related to the condition and standard of remote road infrastructure our visualization aims to make these disparities visible and support evidence-based discussions on where interventions and funding are most needed.</p>
         </section>
         <div id="populationCrashes"></div>
         <div class="legend" id="legend"></div>
         <div class="tooltip" id="tooltip"></div>
-
-        </div>
+        <section>
+            <h2>Hospitalisations for First Nations vs Non-Indigenous Australians by Remoteness</h2>
+            <p>This section visualises the total hospitalisations for road crash victims, comparing First Nations people with non-Indigenous Australians across remoteness areas. Use the dropdown to toggle between groups.</p>
+            <div style="margin-bottom: 20px;">
+                <label for="groupToggle">View: </label>
+                <select id="groupToggle">
+                    <option value="First Nations people">First Nations People</option>
+                    <option value="Non-Indigenous">Non-Indigenous Australians</option>
+                </select>
+            </div>
+        </section>
+        <div id="indigenousChart"></div>
+        <div class="legend" id="indigenousLegend"></div>
     </main>
     <footer>
         <p>&copy; 2023 Data Visualisation Project</p>
     </footer>
+    <script src="assets/js/constants.js"></script>
     <script src="assets/js/loadData.js"></script>
     <script src="assets/js/generalPop.js"></script>
+    <script src="assets/js/IndigenousVsNot.js"></script>
 </body>
 </html>
