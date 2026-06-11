@@ -6,6 +6,7 @@
     <title>Data Visualisation Project</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <link rel="stylesheet" href="assets/styles/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 </head>
 <body>
     <header>
@@ -20,12 +21,27 @@
     </header>
     <main>
         <section>
-            <h2>About</h2>
-            <p>This project aims to provide insights through data visualisation.</p>
+            <h2>aboriginal torres straight islander crashes based on remoteness of road  </h2>
+            <p>The studies and data gathered from the organization has shown that Australians are ranked for a rate of 4.7 deaths per 100000 population Australia was ranked 20th out of the 34 countries [1]. Remote areas show worse severity despite lower raw counts, the demographic who represents remote communities are aboriginal and indigenous Australians. According to 2021 census 15.4 percent of the total indigenous population in Australia lives in remote or very remote areas. Comprising 150800 individuals. 
+
+ Indigenous Australians are overrepresented in road fatalities by approximately 3.5 times [2]. the data suggests a strong correlation between infrastructure quality, geographic remoteness, and overrepresentation of Indigenous fatalities, warranting further investigation into funding allocation. 
+
+ Aboriginal and Torres Strait Islander communities face road safety challenges related to the condition and standard of remote road infrastructure our visualization aims to make these disparities visible and support evidence-based discussions on where interventions and funding are most needed.</p>
         </section>
+        <div id="populationCrashes"></div>
+        <div class="legend" id="legend"></div>
+        <div class="tooltip" id="tooltip"></div>
+
+        </div>
+
+        <div id="normalisedCrashes"></div>
+        <div id="tooltip"></div>
+
     </main>
     <footer>
         <p>&copy; 2023 Data Visualisation Project</p>
     </footer>
+    <script src="generalPop.js"></script>
+    <script src="generalNormalised.js"></script>
 </body>
 </html>
