@@ -1,5 +1,14 @@
+// IndigenousVsNot.js
 let currentData = null;
 let currentGroup = "First Nations people";
+let indigenousTooltip;
+
+const createTooltip = () => {
+    indigenousTooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+}
 
 const processRoadCrashData = (data) => {
     const yearlyTotals = {};
@@ -120,12 +129,28 @@ const drawIndigenousChart = (chartData, group) => {
         .attr("y", d => yScaleIndigenous(d.value))
         .attr("height", d => height - yScaleIndigenous(d.value));
     
+    svgIndigenous.selectAll(".bar")
+        .on("mouseover", (event, d) => {
+            const groupName = group === "First Nations people" ? "First Nations" : "Non-Indigenous";
+            indigenousTooltip.style("opacity", 1)
+                .html(`<strong>${d.cat}</strong><br>Year: ${d.year}<br>${groupName}: ${d.value.toLocaleString()} hospitalisations`);
+        })
+        .on("mousemove", (event) => {
+            indigenousTooltip.style("left", (event.pageX + 12) + "px")
+                .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", () => {
+            indigenousTooltip.style("opacity", 0);
+        });
+    
     remotenessCategories.forEach(cat => {
         const item = d3.select("#indigenousLegend").append("div").attr("class", "legend-item");
         item.append("div").attr("class", "legend-box").style("background", remotenessColors[cat]);
         item.append("span").text(cat);
     });
 }
+
+createTooltip();
 
 loadRoadCrashData().then(rawData => {
     console.log(rawData);
