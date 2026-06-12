@@ -3,7 +3,7 @@ const margin = { top: 20, right: 30, bottom: 50, left: 75 };
 const width  = 820 - margin.left - margin.right;
 const height = 440 - margin.top  - margin.bottom;
 const categories = ["Major Cities", "Regional", "Remote"];
-const colors = { "Major Cities": "#2196F3", "Regional": "#FF9800", "Remote": "#E53935" };
+const colors = { "Major Cities": "#009E73", "Regional": "#E69F00", "Remote": "#D55E00" };
 const years = ["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"];
 
 const svg = d3.select("#firstNationCrashes")
@@ -25,7 +25,7 @@ Promise.all([
         const obj = { year };
         categories.forEach(cat => {
             const row = rawData.find(d => d["ABS remoteness area"] === cat);
-            obj[cat] = row ? +row[`${year}+Mean(Hospitalisations)`] : 0;
+            obj[cat] = row ? +row[`${year}+Sum(Hospitalisations)`] : 0;
         });
         return obj;
     });
