@@ -15,6 +15,21 @@ const indigenousColors = {
     "Non-Indigenous": "#2196F3"
 };
 
+const comparisonColors = {
+    "Major Cities (General)": "#4575b4",
+    "Major Cities (Aboriginal)": "#74add1",
+    "Regional (General)": "#f46d43",
+    "Regional (Aboriginal)": "#fdae61",
+    "Remote (General)": "#a50026",
+    "Remote (Aboriginal)": "#d73027"
+};
+
+const lineColors = {
+    "Major Cities": "#4575b4",
+    "Regional": "#f46d43",
+    "Remote": "#a50026"
+};
+
 const remotenessCategories = ["Major Cities", "Regional", "Remote"];
 const years = ["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"];
 

@@ -24,29 +24,64 @@
             <h2>Aboriginal and Torres Strait Islander crashes based on remoteness of road</h2>
             <p>The studies and data gathered from the organisation has shown that Australian roads have a fatality rate of 4.7 deaths per 100000 people. Australia was ranked 20th out of the 34 countries [1]. Remote areas show worse severity despite lower raw counts, the demographic who represents remote communities are aboriginal and indigenous Australians. According to 2021 census 15.4 percent of the total indigenous population in Australia lives in remote or very remote areas. Comprising 150800 individuals. Indigenous Australians are overrepresented in road fatalities by approximately 3.5 times [2]. the data suggests a strong correlation between infrastructure quality, geographic remoteness, and overrepresentation of Indigenous fatalities, warranting further investigation into funding allocation. Aboriginal and Torres Strait Islander communities face road safety challenges related to the condition and standard of remote road infrastructure our visualization aims to make these disparities visible and support evidence-based discussions on where interventions and funding are most needed.</p>
         </section>
+
+        <h2>General Population Road Crash Hospitalisations</h2>
+        <button id="toggleBtn">Show Normalised Rates</button>
         <div id="populationCrashes"></div>
         <div class="legend" id="legend"></div>
         <div class="tooltip" id="tooltip"></div>
+
         <section>
-            <h2>Hospitalisations for First Nations vs Non-Indigenous Australians by Remoteness</h2>
-            <p>This section visualises the total hospitalisations for road crash victims, comparing First Nations people with non-Indigenous Australians across remoteness areas. Use the dropdown to toggle between groups.</p>
-            <div style="margin-bottom: 20px;">
-                <label for="groupToggle">View: </label>
-                <select id="groupToggle">
-                    <option value="First Nations people">First Nations People</option>
-                    <option value="Non-Indigenous">Non-Indigenous Australians</option>
-                </select>
+            <p>Click on the <strong>show normalised rates</strong> to view the stark contrast that raw data does not show.<br><br>Raw hospitalisation counts alone present a misleading picture of road crash risk across Australia. Major cities recorded approximately 22,000 hospitalisations annually compared to just 1,100 in remote areas. A difference that simply reflects population size rather than genuine risk. When adjusted to hospitalisation rates per 100,000 population, a different pattern emerges.<br><br>Between 2011 and 2021, remote Australians experienced hospitalisation rates between 215 and 246 per 100,000 population. This showing that it was much higher than residents of major cities, who recoded rates between 134 and 153 per 100,000 over the same period. Regional Australians also fell between these extremes, recording rates as high as 161 to 173 per 100,000. This shows that the disparity between regional and remote and major cities has shown no improvement over the decade even after policy changes. The gap between remote and major city rates in 2021 are virtually identical to 2011 suggesting that no action has been undertaken to combat these systemic issues of road infrastructure.</p>
+            <div class="stat-callout">
+                <span class="stat-number">10 years</span>
+                <span class="stat-label">a decade of data shows no improvement in the remote crash gap</span>
             </div>
         </section>
+
+        <h2>Aboriginal Remote Crashes</h2>
+        <button id="firstNationToggleBtn">Show Normalised Rates</button>
+        <div id="firstNationCrashes"></div>
+        <div class="legend" id="firstNationLegend"></div>
+        
+        <section>
+            <p></p>
+        </section>
+
+        <h2>Comparison: General vs Aboriginal Population</h2>
+        <div id="comparisonChart"></div>
+        <div class="legend" id="comparisonLegend"></div>
+
+        <h2>Trend Lines by Remoteness</h2>
+        <button id="lineToggleBtn">Show Aboriginal Population</button>
+        <div id="lineChart"></div>
+        <div class="legend" id="lineLegend"></div>
+
+        <h2>Hospitalisations for First Nations vs Non-Indigenous Australians by Remoteness</h2>
+        <div style="margin-bottom: 20px;">
+            <label for="groupToggle">View: </label>
+            <select id="groupToggle">
+                <option value="First Nations people">First Nations People</option>
+                <option value="Non-Indigenous">Non-Indigenous Australians</option>
+            </select>
+        </div>
         <div id="indigenousChart"></div>
         <div class="legend" id="indigenousLegend"></div>
+
+        <h2>Hospitalisations and Bed Days</h2>
+        <div id="hospitalisationsChart"></div>
+        <div id="bedDaysChart"></div>
     </main>
     <footer>
         <p>&copy; 2023 Data Visualisation Project</p>
     </footer>
+    
     <script src="assets/js/constants.js"></script>
     <script src="assets/js/loadData.js"></script>
     <script src="assets/js/generalPop.js"></script>
     <script src="assets/js/IndigenousVsNot.js"></script>
-</body>
+    <script src="assets/js/generalNormalised.js"></script>
+    <script src="assets/js/firstNationNormalisation.js"></script>
+    <script src="assets/js/comparisonChart.js"></script>
+    <script src="assets/js/linechart.js"></script>
 </html>

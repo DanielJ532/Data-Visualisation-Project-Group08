@@ -2,32 +2,30 @@
     const categories = ["Major Cities", "Regional", "Remote"];
     const colors = remotenessColors;
 
-    const svg = d3.select("#populationCrashesNew")
+    const svg = d3.select("#firstNationCrashes")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    const generalPopNewTooltip = d3.select("#generalPopNewTooltip");
-    if (generalPopNewTooltip.empty()) {
-        d3.select("body").append("div").attr("id", "generalPopNewTooltip").attr("class", "tooltip").style("opacity", 0);
+    const firstNationTooltip = d3.select("#firstNationTooltip");
+    if (firstNationTooltip.empty()) {
+        d3.select("body").append("div").attr("id", "firstNationTooltip").attr("class", "tooltip").style("opacity", 0);
     }
 
     let isNormalised = false;
 
     Promise.all([
-        loadGeneralPopVer3Data(),
-        loadGeneralPopNormalisedData()
+        loadFirstNationRawData(),
+        loadFirstNationNormalisedData()
     ]).then(function([rawData, normData]) {
-
-        rawData = rawData.filter(d => d["ABS remoteness area"] !== "Missing");
 
         const rawChartData = years.map(year => {
             const obj = { year };
             categories.forEach(cat => {
                 const row = rawData.find(d => d["ABS remoteness area"] === cat);
-                obj[cat] = row ? +row[`${year}+Sum(Count of cases)`] : 0;
+                obj[cat] = row ? +row[`${year}+Mean(Hospitalisations)`] : 0;
             });
             return obj;
         });
@@ -35,8 +33,8 @@
         const normChartData = years.map(year => {
             const obj = { year };
             categories.forEach(cat => {
-                const row = normData.find(d => d["remoteness"] === cat);
-                obj[cat] = row ? +row[`${year}+Sum(cases_per_100000)`] : 0;
+                const row = normData.find(d => d["ABS remoteness area"] === cat);
+                obj[cat] = row ? +row[`${year}+Sum(Hospitalisations normalized per 100000)`] : 0;
             });
             return obj;
         });
@@ -65,7 +63,7 @@
             .text("Year");
 
         categories.forEach(cat => {
-            const item = d3.select("#legendNew").append("div").attr("class", "legend-item");
+            const item = d3.select("#firstNationLegend").append("div").attr("class", "legend-item");
             item.append("div").attr("class", "legend-box").style("background", colors[cat]);
             item.append("span").text(cat);
         });
@@ -82,11 +80,10 @@
                 .tickFormat(d => normalised ? d.toFixed(1) : d.toLocaleString()));
             yAxisGroup.select(".domain").remove();
 
-            yLabel.text(normalised ? "Hospitalisations per 100,000 population" : "Total Hospitalisations");
+            yLabel.text(normalised ? "Hospitalisations per 100,000 population" : "Average Hospitalisations");
 
             const yearGroups = svg.selectAll(".year-group").data(chartData);
-            yearGroups.enter()
-                .append("g")
+            yearGroups.enter().append("g")
                 .attr("class", "year-group")
                 .attr("transform", d => `translate(${x0(d.year)},0)`);
 
@@ -98,37 +95,37 @@
 
             bars.enter().append("rect")
                 .attr("class", "bar")
-                .attr("x", d => x1(d.cat))
+                .attr("x",     d => x1(d.cat))
                 .attr("width", x1.bandwidth())
-                .attr("fill", d => colors[d.cat])
+                .attr("fill",  d => colors[d.cat])
                 .attr("rx", 2)
                 .attr("y", height)
                 .attr("height", 0)
                 .merge(bars)
                 .transition().duration(600).ease(d3.easeCubicInOut)
-                .attr("x", d => x1(d.cat))
-                .attr("width", x1.bandwidth())
-                .attr("y", d => yScale(d.value))
+                .attr("x",      d => x1(d.cat))
+                .attr("width",  x1.bandwidth())
+                .attr("y",      d => yScale(d.value))
                 .attr("height", d => height - yScale(d.value));
 
             svg.selectAll(".bar")
                 .on("mouseover", (event, d) => {
-                    generalPopNewTooltip.style("opacity", 1)
-                        .html(`<strong>${d.cat}</strong><br>Year: ${d.year}<br>${normalised ? `Rate: ${d.value.toFixed(1)} per 100,000` : `Cases: ${d.value.toLocaleString()}`}`);
+                    firstNationTooltip.style("opacity", 1)
+                        .html(`<strong>${d.cat}</strong><br>Year: ${d.year}<br>${normalised ? `Rate: ${d.value.toFixed(1)} per 100,000` : `Avg Cases: ${d.value.toLocaleString()}`}`);
                 })
                 .on("mousemove", event => {
-                    generalPopNewTooltip.style("left", (event.pageX + 12) + "px")
+                    firstNationTooltip.style("left", (event.pageX + 12) + "px")
                            .style("top",  (event.pageY - 28) + "px");
                 })
-                .on("mouseout", () => generalPopNewTooltip.style("opacity", 0));
+                .on("mouseout", () => firstNationTooltip.style("opacity", 0));
         }
 
         update(rawChartData, false);
 
-        document.getElementById("toggleBtn").addEventListener("click", () => {
+        document.getElementById("firstNationToggleBtn").addEventListener("click", () => {
             isNormalised = !isNormalised;
             update(isNormalised ? normChartData : rawChartData, isNormalised);
-            document.getElementById("toggleBtn").textContent = isNormalised ? "Show Raw Counts" : "Show Normalised Rates";
+            document.getElementById("firstNationToggleBtn").textContent = isNormalised ? "Show Raw Counts" : "Show Normalised Rates";
         });
     });
 }

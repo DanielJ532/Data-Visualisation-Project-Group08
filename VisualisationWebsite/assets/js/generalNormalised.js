@@ -18,8 +18,8 @@ let isNormalised = false;
 
 
 Promise.all([
-    d3.csv("generalPopVer3.csv"),
-    d3.csv("generalPopNormalised.csv")
+    d3.csv("assets/data/generalPopVer3.csv"),
+    d3.csv("assets/data/generalPopNormalised.csv")
 ]).then(function([rawData, normData]) {
 
     rawData = rawData.filter(d => d["ABS remoteness area"] !== "Missing");

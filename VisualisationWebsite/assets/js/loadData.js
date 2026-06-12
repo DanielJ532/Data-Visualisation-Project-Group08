@@ -42,3 +42,19 @@ function loadRoadCrashData() {
         console.error("Error loading road crash data:", error);
     });
 }
+
+function loadGeneralPopNormalisedData() {
+    return d3.csv("assets/data/generalPopNormalised.csv");
+}
+
+function loadFirstNationNormalisedData() {
+    return d3.csv("assets/data/firstNationNormalised.csv");
+}
+
+function loadFirstNationRawData() {
+    return d3.csv("assets/data/firstNationRaw.csv");
+}
+
+function loadGeneralPopVer3Data() {
+    return d3.csv("assets/data/generalPopVer3.csv");
+}
