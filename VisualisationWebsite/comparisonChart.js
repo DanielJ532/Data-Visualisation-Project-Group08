@@ -10,12 +10,12 @@ const categories = [
 ];
 
 const colors = {
-    "Major Cities (General)":   "#4575b4",
-    "Major Cities (Aboriginal)":"#74add1",
-    "Regional (General)":       "#f46d43",
-    "Regional (Aboriginal)":    "#fdae61",
-    "Remote (General)":         "#a50026",
-    "Remote (Aboriginal)":      "#d73027"
+    "Major Cities (General)":   "#90CAF9",
+    "Major Cities (Aboriginal)":"#E57373",
+    "Regional (General)":       "#1976D2",
+    "Regional (Aboriginal)":    "#E53935",
+    "Remote (General)":         "#0D47A1",
+    "Remote (Aboriginal)":      "#B71C1C"
 };
 
 const years = ["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"];
@@ -89,7 +89,7 @@ Promise.all([
         .attr("y", -65).attr("x", -height / 2)
         .attr("text-anchor", "middle")
         .style("font-size", "12px").attr("fill", "#555")
-        .text("Hospitalisations per 100,000 population");
+        .text("Hospitalisations/cases per 100,000 population");
 
     // x label
     svg.append("text")
